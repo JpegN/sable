@@ -41,6 +41,7 @@
     "entity.entity_sublevel_collision.CameraMixin",
     "entity.entity_swimming.CameraMixin",
     "entity.parrot.ParrotMixin",
+    "entity.no_culling.EntityMixin",
     "loaded_chunk_debug.BlockUpdatePacketMixin",
     "loaded_chunk_debug.ChunkBorderRendererMixin",
     "loaded_chunk_debug.ClientChunkCacheStorageAccessor",
