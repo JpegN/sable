@@ -149,6 +149,7 @@
     "entity.entity_rotations_and_riding.ServerEntityMixin",
     "entity.entity_rotations_and_riding.ServerPlayerMixin",
     "entity.entity_sublevel_collision.AbstractMinecartMixin",
+    "entity.entity_sublevel_collision.ArmorStandMixin",
     "entity.entity_sublevel_collision.EntityMixin",
     "entity.entity_sublevel_collision.ItemEntityMixin",
     "entity.entity_sublevel_collision.LevelMixin",
