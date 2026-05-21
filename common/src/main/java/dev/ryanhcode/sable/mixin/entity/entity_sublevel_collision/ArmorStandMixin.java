@@ -7,6 +7,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,10 +25,19 @@ public abstract class ArmorStandMixin extends Entity {
         if (this.level().isClientSide) return;
 
         final SubLevel containingSubLevel = Sable.HELPER.getContaining(this);
-        if (containingSubLevel == null) return;
 
-        if (this.onGround()) return;
-
-        EntitySubLevelUtil.kickEntity(containingSubLevel, this);
+        if (containingSubLevel != null) {
+            if (!this.onGround()) {
+                EntitySubLevelUtil.kickEntity(containingSubLevel, this);
+            }
+        } else if (this.onGround()) {
+            final SubLevel landed = Sable.HELPER.getTrackingSubLevel(this);
+            if (landed != null) {
+                final Vec3 shipyardPos = landed.logicalPose().transformPositionInverse(this.position());
+                final Vec3 shipyardVel = landed.logicalPose().transformNormalInverse(this.getDeltaMovement());
+                this.moveTo(shipyardPos.x, shipyardPos.y, shipyardPos.z);
+                this.setDeltaMovement(shipyardVel);
+            }
+        }
     }
 }
